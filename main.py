@@ -1,56 +1,30 @@
 import random
 
-#character attributes:
-#genesee ave
-anna = ("blonde hair", "blue eyes", "glasses", "no hat", "female", "human")
-tony = ("bald", "brown eyes", "no glasses", "hat", "male", "human")
-tieler = ("brown hair", "brown eyes", "no glasses", "hat", "male", "human")
-andie = ("blonde hair", "blue eyes", "glasses", "no hat", "female", "human")
-alex = ("blonde hair", "green eyes", "no glasses", "no hat", "female", "human")
-#gage ave
-steve = ("brown hair", "blue eyes", "no glasses", "no hat", "male", "human")
-karen = ("grey hair", "blue eyes", "no glasses", "no hat", "female", "human")
-kristina = ("brown hair", "brown eyes", "no glasses", "no hat", "female", "human")
-jake = ("brown hair", "blue eyes", "glasses", "hat", "male", "human")
-#utah
-jon = ("bald", "blue eyes", "no glasses", "hat", "male", "human")
-rochelle = ("brown hair", "brown eyes", "glasses", "no hat", "female", "human")
-grace = ("orange hair", "blue eyes", "no glasses", "no hat", "female", "human")
-charlie = ("brown hair", "green eyes", "no glasses", "no hat", "male", "human")
-#sauk
-gail = ("blonde hair", "brown eyes", "glasses", "no hat", "female", "human")
-roy = ("grey hair", "blue eyes", "no glasses", "hat", "male", "human")
-#chicago
-jade = ("grey hair", "green eyes", "glasses", "no hat", "female", "human")
-matt = ("brown hair", "brown eyes", "glasses", "no hat", "male", "human")
-violet = ("blonde hair", "blue eyes", "no glasses", "no hat", "female", "human")
-hazel = ("blonde hair", "green eyes", "glasses", "no hat", "female", "human")
-#cats
-bobbie = ("orange hair", "yellow eyes", "no glasses", "no hat", "female", "cat")
-george = ("blonde hair", "yellow eyes", "no glasses", "no hat", "male", "cat")
-gg = ("grey hair", "yellow eyes", "no glasses", "no hat", "female", "cat")
-benny = ("grey hair", "yellow eyes", "no glasses", "no hat", "male", "cat")
-
-#listing characters
-characters = ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Jon", "Rochelle", "Grace", "Charlie", "Gail", "Roy", "Jade", "Matt", "Violet", "Hazel", "Bobbie", "George", "GG", "Benny"]    
-opponent_choice = random.choice(characters)
+from character_file import opponent_choice, characters_list
 
 win = False
+q = 0
+
+opponent_choice = opponent_choice()
 
 #rules
 print("Welcome to Guess Who!")
+
+#rules
+print("\nTry To Guess The Opponent's Character By Asking Yes Or No Questions.")
+print("\nYou Can Ask About Hair Color, Eye Color, Glasses, Hat, Gender, Or Species(Human Or Cat).")
+print("\nWhen You Want To Guess The Opponent's Character, Type 'I want to guess'")
+print("To Forfit The Game, Type 'end game'")
+
+#print character list
 print("Here are the characters you can choose from:")
-for character in characters:
-    print(character, end=", ")
-print("\nTry to guess the opponent's character by asking yes or no questions.")
-print("\nYou can ask about hair color, eye color, glasses, hat, gender, or species(human or cat).")
-print("When You Want To Guess The Opponent's Character, Type 'I want to guess'")
+print(", ".join(characters_list))
 
 #game loop
 
 while win == False:
-    question = input("Ask a yes or no question about the opponent's character: ")
-
+    question = input("\nAsk a yes or no question about the opponent's character: ")
+    q = q + 1
     #hair color questions
     #blonde hair
     if question.lower() == "do they have blonde hair?":
@@ -66,7 +40,7 @@ while win == False:
             print("No")
     #grey hair
     elif question.lower() == "do they have grey hair?":
-        if opponent_choice in ["Karen", "Gail", "Roy", "GG", "Benny"]:
+        if opponent_choice in ["Karen", "Roy", "GG", "Benny"]:
             print("Yes")
         else:
             print("No")
@@ -142,7 +116,7 @@ while win == False:
     #species questions
     #human
     elif question.lower() == "are they human?":
-        if opponent_choice in ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Jon", "Rochelle", "Grace", "Charlie", "Gail", "Roy", "Violet", "Matt", "Hazel"]:
+        if opponent_choice in ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Jon", "Rochelle", "Grace", "Charlie", "Gail", "Roy", "Jade", "Violet", "Matt", "Hazel"]:
             print("Yes")
         else:
             print("No")
@@ -157,7 +131,10 @@ while win == False:
         guess = input("Enter your guess: ")
         if guess.title() == opponent_choice:
             print("Congratulations! You guessed the opponent's character correctly!")
-            win = True     
+            print(f"You guessed the character in {q} questions.")
+            win = True
         else:
             print("Sorry, that's not correct. Keep trying!")
-        
+    elif question.lower() == "end game":
+        print(f"The opponent's character was {opponent_choice}. Thanks for playing!")
+        break
