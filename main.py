@@ -1,6 +1,5 @@
 import random
 
-
 #character attributes:
 #genesee ave
 anna = ("blonde hair", "blue eyes", "glasses", "no hat", "female", "human")
@@ -32,12 +31,13 @@ george = ("blonde hair", "yellow eyes", "no glasses", "no hat", "male", "cat")
 gg = ("grey hair", "yellow eyes", "no glasses", "no hat", "female", "cat")
 benny = ("grey hair", "yellow eyes", "no glasses", "no hat", "male", "cat")
 
+#listing characters
 characters = ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Jon", "Rochelle", "Grace", "Charlie", "Gail", "Roy", "Bobbie", "George", "GG", "Benny"]    
 opponent_choice = random.choice(characters)
 
 win = False
 
-
+#rules
 print("Welcome to Guess Who!")
 print("Here are the characters you can choose from:")
 for character in characters:
@@ -46,8 +46,7 @@ print("\nTry to guess the opponent's character by asking yes or no questions.")
 print("\nYou can ask about hair color, eye color, glasses, hat, gender, or species(human or cat).")
 print("When You Want To Guess The Opponent's Character, Type 'I want to guess'")
 
-#REMOVE THIS LATER
-print("\n"+opponent_choice)
+#game loop
 
 while win == False:
     question = input("Ask a yes or no question about the opponent's character: ")
