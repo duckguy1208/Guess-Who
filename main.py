@@ -32,7 +32,7 @@ gg = ("grey hair", "yellow eyes", "no glasses", "no hat", "female", "cat")
 benny = ("grey hair", "yellow eyes", "no glasses", "no hat", "male", "cat")
 
 #listing characters
-characters = ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Jon", "Rochelle", "Grace", "Charlie", "Gail", "Roy", "Bobbie", "George", "GG", "Benny"]    
+characters = ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Jon", "Rochelle", "Grace", "Charlie", "Gail", "Roy", "Jade", "Matt", "Violet", "Hazel", "Bobbie", "George", "GG", "Benny"]    
 opponent_choice = random.choice(characters)
 
 win = False
