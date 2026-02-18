@@ -108,7 +108,7 @@ while win == False:
             print("No")
     #female
     elif question.lower() == "are they female?":
-        if opponent_choice in ["Anna", "Andie", "Alex", "Karen", "Kristina", "Rochelle", "Grace", "Gail", "Violet", "GG", "Bobbie"]:
+        if opponent_choice in ["Anna", "Andie", "Alex", "Karen", "Kristina", "Rochelle", "Grace", "Gail", "Jade", "Violet", "Hazel", "GG", "Bobbie"]:
             print("Yes")
         else:
             print("No")
@@ -122,7 +122,7 @@ while win == False:
             print("No")
     #cat
     elif question.lower() == "are they a cat?":
-        if opponent_choice in ["Bobbie", "George", "GG", "Benny"]:
+        if opponent_choice in ["Bobbie", "George", "Gg", "Benny"]:
             print("Yes")
         else:
             print("No")
