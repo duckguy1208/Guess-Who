@@ -31,11 +31,15 @@ def character_stats():
     george = ("blonde hair", "yellow eyes", "no glasses", "no hat", "male", "cat")
     gg = ("grey hair", "yellow eyes", "no glasses", "no hat", "female", "cat")
     benny = ("grey hair", "yellow eyes", "no glasses", "no hat", "male", "cat")
-
+    #ducks
+    bob = ("grey hair", "brown eyes", "no glasses", "no hat", "female", "duck")
+    notbob = ("grey hair", "brown eyes", "no glasses", "no hat", "male", "duck")
+    micheal = ("brown hair", "brown eyes", "no glasses", "no hat ", "male", "duck")
+    mallards = ("brown hair", "brown eyes", "no glasses", "no hat" , "female", "duck")
 
 
 def opponent_choice():
-    characters = ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Jon", "Rochelle", "Grace", "Charlie", "Gail", "Roy", "Jade", "Matt", "Violet", "Hazel", "Bobbie", "George", "GG", "Benny"] 
+    characters = ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Jon", "Rochelle", "Grace", "Charlie", "Gail", "Roy", "Jade", "Matt", "Violet", "Hazel", "Bobbie", "George", "GG", "Benny", "Bob", "Not Bob", "Micheal", "Mallards"] 
     return random.choice(characters)
 
-characters_list = ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Jon", "Rochelle", "Grace", "Charlie", "Gail", "Roy", "Jade", "Matt", "Violet", "Hazel", "Bobbie", "George", "GG", "Benny"]
+characters_list = ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Jon", "Rochelle", "Grace", "Charlie", "Gail", "Roy", "Jade", "Matt", "Violet", "Hazel", "Bobbie", "George", "GG", "Benny", "Bob", "Not Bob", "Micheal", "Mallards"]

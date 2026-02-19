@@ -34,13 +34,13 @@ while win == False:
             print("No")
     #brown hair
     elif question.lower() == "do they have brown hair?":
-        if opponent_choice in ["Tieler", "Steve", "Kristina", "Jake", "Rochelle", "Charlie", "Matt"]:
+        if opponent_choice in ["Tieler", "Steve", "Kristina", "Jake", "Rochelle", "Charlie", "Matt", "Micheal", "Mallards"]:
             print("Yes")
         else:
             print("No")
     #grey hair
     elif question.lower() == "do they have grey hair?":
-        if opponent_choice in ["Karen", "Roy", "GG", "Benny"]:
+        if opponent_choice in ["Karen", "Roy", "GG", "Benny", "Bob", "Not Bob"]:
             print("Yes")
         else:
             print("No")
@@ -66,7 +66,7 @@ while win == False:
             print("No")
     #brown eyes
     elif question.lower() == "do they have brown eyes?":
-        if opponent_choice in ["Tony", "Tieler", "Kristina", "Rochelle", "Matt"]:
+        if opponent_choice in ["Tony", "Tieler", "Kristina", "Rochelle", "Matt", "Bob", "Not Bob", "Micheal", "Mallards"]:
             print("Yes")
         else:
             print("No")
@@ -78,7 +78,7 @@ while win == False:
             print("No")
     #yellow eyes
     elif question.lower() == "do they have yellow eyes?":
-        if opponent_choice in ["Bobbie", "George", "GG", "Benny"]:
+        if opponent_choice in ["Bobbie", "George", "GG", "Benny",]:
             print("Yes")
         else:
             print("No")
@@ -102,13 +102,13 @@ while win == False:
     #gender questions
     #male
     elif question.lower() == "are they male?":
-        if opponent_choice in ["Tony", "Tieler", "Steve", "Jake", "Jon", "Charlie", "Roy", "Matt", "George", "Benny"]:
+        if opponent_choice in ["Tony", "Tieler", "Steve", "Jake", "Jon", "Charlie", "Roy", "Matt", "George", "Benny", "Not Bob", "Micheal", "Mallards"]:
             print("Yes")
         else:
             print("No")
     #female
     elif question.lower() == "are they female?":
-        if opponent_choice in ["Anna", "Andie", "Alex", "Karen", "Kristina", "Rochelle", "Grace", "Gail", "Violet", "GG", "Bobbie"]:
+        if opponent_choice in ["Anna", "Andie", "Alex", "Karen", "Kristina", "Rochelle", "Grace", "Gail","Jade", "Violet", "Hazel", "GG", "Bobbie", "Bob", "Micheal":
             print("Yes")
         else:
             print("No")
@@ -126,6 +126,12 @@ while win == False:
             print("Yes")
         else:
             print("No")
+    #duck
+    elif question.lower() == "are they a duck?":
+        if opponent_choice in ["Bob", "Not bob", "Micheal", "Mallards"]:
+            print("Yes")
+        else:
+            print("No")
 
     elif question.lower() == "i want to guess the opponent's character" or question.lower() == "i want to guess":
         guess = input("Enter your guess: ")
@@ -135,6 +141,8 @@ while win == False:
             win = True
         else:
             print("Sorry, that's not correct. Keep trying!")
+            print(f"The opponent's character was {opponent_choice}. Thanks for playing!")
+            win = True
     elif question.lower() == "end game":
         print(f"The opponent's character was {opponent_choice}. Thanks for playing!")
         break
