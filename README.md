@@ -31,3 +31,8 @@ Bobbie: Orange hair, yellow eyes, no glasses, no hat, female, cat
 George: Blonde hair, yellow eyes, no glasses, no hat, male, cat
 GG: Grey hair, yellow eyes, no glasses, no hat, female, cat
 Benny: Grey hair, yellow eyes, no glasses, no hat, male, cat
+
+Bob = grey hair, brown eyes, no glasses, no hat, female, duck
+Not bob = grey hair, brown eyes, no glasses, no hat, male, duck
+Micheal = brown hair, brown eyes, no glasses, no hat, male, duck
+Mallards = brown hair, brown eyes, no glasses, no hat, female, duck
