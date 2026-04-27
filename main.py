@@ -15,6 +15,8 @@ def get_values_for_attribute(attribute):
         return ["", "Male", "Female"]
     elif attribute == "Species":
         return ["", "Human", "Cat", "Duck"]
+    elif attribute == "Location":
+        return ["", "Minnesota", "Utah", "Chicago"]
     return [""]
 
 
