@@ -42,4 +42,4 @@ def opponent_choice():
     characters = ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Jon", "Rochelle", "Grace", "Charlie", "Gail", "Roy", "Jade", "Matt", "Violet", "Hazel", "Bobbie", "George", "GG", "Benny", "Bob", "Not Bob", "Micheal", "The Mallards"] 
     return random.choice(characters)
 
-characters_list = ["Anna", " Tony", " Tieler", " Andie", " Alex", " Steve", " Karen", " Kristina", " Jake", " Jon", " Rochelle", " Grace", " Charlie", " Gail", " Roy", " Jade", " Matt", " Violet", " Hazel", " Bobbie", " George", " GG", " Benny", " Bob", " Not Bob", " Micheal", " The Mallards"]
+characters_list = ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Jon", "Rochelle", "Grace", "Charlie", "Gail", "Roy", "Jade", "Matt", "Violet", "Hazel", "Bobbie", "George", "GG", "Benny", "Bob", "Not Bob", "Micheal", "The Mallards"]

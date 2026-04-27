@@ -25,7 +25,7 @@ def get_answer(opponent, attribute, value):
     if attribute == "Hair Color":
         if value == "Blonde hair" and opponent in ["Anna", "Andie", "Alex", "George", "Violet", "Hazel", "Jade", "Gail"]:
             return "Yes"
-        elif value == "Brown hair" and opponent in ["Tieler", "Steve", "Kristina", "Jake", "Rochelle", "Charlie", "Matt", "Micheal", "Mallards"]:
+        elif value == "Brown hair" and opponent in ["Tieler", "Steve", "Kristina", "Jake", "Rochelle", "Charlie", "Matt", "Micheal", "The Mallards"]:
             return "Yes"
         elif value == "Grey hair" and opponent in ["Karen", "Roy", "GG", "Benny", "Bob", "Not Bob"]:
             return "Yes"
@@ -38,7 +38,7 @@ def get_answer(opponent, attribute, value):
     elif attribute == "Eye Color":
         if value == "Blue eyes" and opponent in ["Anna", "Andie", "Steve", "Karen", "Jon", "Grace", "Charlie", "Roy", "Gail", "Violet", "Jade"]:
             return "Yes"
-        elif value == "Brown eyes" and opponent in ["Tony", "Tieler", "Kristina", "Rochelle", "Matt", "Bob", "Not Bob", "Micheal", "Mallards"]:
+        elif value == "Brown eyes" and opponent in ["Tony", "Tieler", "Kristina", "Rochelle", "Matt", "Bob", "Not Bob", "Micheal", "The Mallards"]:
             return "Yes"
         elif value == "Green eyes" and opponent in ["Alex", "Charlie", "Hazel", "Jade"]:
             return "Yes"
@@ -54,7 +54,7 @@ def get_answer(opponent, attribute, value):
     
     # Gender
     elif attribute == "Gender":
-        if value == "Male" and opponent in ["Tony", "Tieler", "Steve", "Jake", "Jon", "Charlie", "Roy", "Matt", "George", "Benny", "Not Bob", "Micheal", "Mallards"]:
+        if value == "Male" and opponent in ["Tony", "Tieler", "Steve", "Jake", "Jon", "Charlie", "Roy", "Matt", "George", "Benny", "Not Bob", "Micheal", "The Mallards"]:
             return "Yes"
         elif value == "Female" and opponent in ["Anna", "Andie", "Alex", "Karen", "Kristina", "Rochelle", "Grace", "Gail", "Violet", "GG", "Bobbie"]:
             return "Yes"
@@ -65,19 +65,19 @@ def get_answer(opponent, attribute, value):
             return "Yes"
         elif value == "Cat" and opponent in ["Bobbie", "George", "GG", "Benny"]:
             return "Yes"
-        elif value == "Duck" and opponent in ["Bob", "Not Bob", "Micheal", "Mallards"]:
+        elif value == "Duck" and opponent in ["Bob", "Not Bob", "Micheal", "The Mallards"]:
             return "Yes"
 
     # Location
     elif attribute == "Location":
-        if value == "Minnesota" and opponent in ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Gail", "Roy", "Bobbie", "George", "GG", "Benny", "Bob", "Not Bob", "Micheal", "Mallards"]:
+        if value == "Minnesota" and opponent in ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Gail", "Roy", "Bobbie", "George", "GG", "Benny", "Bob", "Not Bob", "Micheal", "The Mallards"]:
             return "Yes"
         elif value == "Utah" and opponent in ["Jon", "Rochelle", "Grace", "Charlie"]:
             return "Yes"
         elif value == "Chicago" and opponent in ["Jade", "Matt", "Violet", "Hazel"]:
             return "Yes"
 
-    return "Unknown"
+    return "No"
 
 
 # Initialize session state
