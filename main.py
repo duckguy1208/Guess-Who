@@ -33,8 +33,7 @@ def get_answer(opponent, attribute, value):
             return "Yes"
         elif value == "Bald" and opponent in ["Tony", "Jon"]:
             return "Yes"
-        return "No"
-    
+
     # Eye Color
     elif attribute == "Eye Color":
         if value == "Blue eyes" and opponent in ["Anna", "Andie", "Steve", "Karen", "Jon", "Grace", "Charlie", "Roy", "Gail", "Violet", "Jade"]:
@@ -45,15 +44,13 @@ def get_answer(opponent, attribute, value):
             return "Yes"
         elif value == "Yellow eyes" and opponent in ["Bobbie", "George", "GG", "Benny"]:
             return "Yes"
-        return "No"
-    
+
     # Accessories
     elif attribute == "Accessories":
         if value == "Glasses" and opponent in ["Anna", "Andie", "Jake", "Rochelle", "Gail", "Jade", "Matt", "Hazel"]:
             return "Yes"
         elif value == "Hat" and opponent in ["Tony", "Tieler", "Jake", "Jon", "Roy"]:
             return "Yes"
-        return "No"
     
     # Gender
     elif attribute == "Gender":
@@ -61,7 +58,6 @@ def get_answer(opponent, attribute, value):
             return "Yes"
         elif value == "Female" and opponent in ["Anna", "Andie", "Alex", "Karen", "Kristina", "Rochelle", "Grace", "Gail", "Violet", "GG", "Bobbie"]:
             return "Yes"
-        return "No"
     
     # Species
     elif attribute == "Species":
@@ -71,8 +67,7 @@ def get_answer(opponent, attribute, value):
             return "Yes"
         elif value == "Duck" and opponent in ["Bob", "Not Bob", "Micheal", "Mallards"]:
             return "Yes"
-        return "No"
-    
+
     # Location
     elif attribute == "Location":
         if value == "Minnesota" and opponent in ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Gail", "Roy", "Bobbie", "George", "GG", "Benny", "Bob", "Not Bob", "Micheal", "Mallards"]:
@@ -81,7 +76,6 @@ def get_answer(opponent, attribute, value):
             return "Yes"
         elif value == "Chicago" and opponent in ["Jade", "Matt", "Violet", "Hazel"]:
             return "Yes"
-        return "No"
 
     return "Unknown"
 
