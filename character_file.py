@@ -34,8 +34,8 @@ def character_stats():
     #ducks
     bob = ("grey hair", "brown eyes", "no glasses", "no hat", "female", "duck")
     notbob = ("grey hair", "brown eyes", "no glasses", "no hat", "male", "duck")
-    micheal = ("brown hair", "brown eyes", "no glasses", "no hat ", "male", "duck")
-    mallards = ("brown hair", "brown eyes", "no glasses", "no hat" , "female", "duck")
+    micheal = ("brown hair", "brown eyes", "no glasses", "no hat", "male", "duck")
+    mallards = ("brown hair", "brown eyes", "no glasses", "no hat", "female", "duck")
 
 
 def opponent_choice():
