@@ -2,6 +2,88 @@ import random
 import streamlit as st
 from character_file import opponent_choice, characters_list
 
+
+# Helper functions - defined FIRST
+def get_values_for_attribute(attribute):
+    if attribute == "Hair Color":
+        return ["", "Blonde hair", "Brown hair", "Grey hair", "Orange hair", "Bald"]
+    elif attribute == "Eye Color":
+        return ["", "Blue eyes", "Brown eyes", "Green eyes", "Yellow eyes"]
+    elif attribute == "Accessories":
+        return ["", "Glasses", "Hat"]
+    elif attribute == "Gender":
+        return ["", "Male", "Female"]
+    elif attribute == "Species":
+        return ["", "Human", "Cat", "Duck"]
+    return [""]
+
+
+def get_answer(opponent, attribute, value):
+    # Hair Color
+    if attribute == "Hair Color":
+        if value == "Blonde hair" and opponent in ["Anna", "Andie", "Alex", "George", "Violet", "Hazel", "Jade", "Gail"]:
+            return "Yes"
+        elif value == "Brown hair" and opponent in ["Tieler", "Steve", "Kristina", "Jake", "Rochelle", "Charlie", "Matt", "Micheal", "Mallards"]:
+            return "Yes"
+        elif value == "Grey hair" and opponent in ["Karen", "Roy", "GG", "Benny", "Bob", "Not Bob"]:
+            return "Yes"
+        elif value == "Orange hair" and opponent in ["Grace", "Bobbie"]:
+            return "Yes"
+        elif value == "Bald" and opponent in ["Tony", "Jon"]:
+            return "Yes"
+        return "No"
+    
+    # Eye Color
+    elif attribute == "Eye Color":
+        if value == "Blue eyes" and opponent in ["Anna", "Andie", "Steve", "Karen", "Jon", "Grace", "Charlie", "Roy", "Gail", "Violet", "Jade"]:
+            return "Yes"
+        elif value == "Brown eyes" and opponent in ["Tony", "Tieler", "Kristina", "Rochelle", "Matt", "Bob", "Not Bob", "Micheal", "Mallards"]:
+            return "Yes"
+        elif value == "Green eyes" and opponent in ["Alex", "Charlie", "Hazel", "Jade"]:
+            return "Yes"
+        elif value == "Yellow eyes" and opponent in ["Bobbie", "George", "GG", "Benny"]:
+            return "Yes"
+        return "No"
+    
+    # Accessories
+    elif attribute == "Accessories":
+        if value == "Glasses" and opponent in ["Anna", "Andie", "Jake", "Rochelle", "Gail", "Jade", "Matt", "Hazel"]:
+            return "Yes"
+        elif value == "Hat" and opponent in ["Tony", "Tieler", "Jake", "Jon", "Roy"]:
+            return "Yes"
+        return "No"
+    
+    # Gender
+    elif attribute == "Gender":
+        if value == "Male" and opponent in ["Tony", "Tieler", "Steve", "Jake", "Jon", "Charlie", "Roy", "Matt", "George", "Benny", "Not Bob", "Micheal", "Mallards"]:
+            return "Yes"
+        elif value == "Female" and opponent in ["Anna", "Andie", "Alex", "Karen", "Kristina", "Rochelle", "Grace", "Gail", "Violet", "GG", "Bobbie"]:
+            return "Yes"
+        return "No"
+    
+    # Species
+    elif attribute == "Species":
+        if value == "Human" and opponent in ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Jon", "Rochelle", "Grace", "Charlie", "Gail", "Roy", "Jade", "Violet", "Matt", "Hazel"]:
+            return "Yes"
+        elif value == "Cat" and opponent in ["Bobbie", "George", "GG", "Benny"]:
+            return "Yes"
+        elif value == "Duck" and opponent in ["Bob", "Not Bob", "Micheal", "Mallards"]:
+            return "Yes"
+        return "No"
+    
+    # Location
+    elif attribute == "Location":
+        if value == "Minnesota" and opponent in ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Gail", "Roy", "Bobbie", "George", "GG", "Benny", "Bob", "Not Bob", "Micheal", "Mallards"]:
+            return "Yes"
+        elif value == "Utah" and opponent in ["Jon", "Rochelle", "Grace", "Charlie"]:
+            return "Yes"
+        elif value == "Chicago" and opponent in ["Jade", "Matt", "Violet", "Hazel"]:
+            return "Yes"
+        return "No"
+
+    return "Unknown"
+
+
 # Initialize session state
 if 'opponent_character' not in st.session_state:
     st.session_state.opponent_character = None
@@ -9,252 +91,104 @@ if 'question_count' not in st.session_state:
     st.session_state.question_count = 0
 if 'game_over' not in st.session_state:
     st.session_state.game_over = False
-if 'message' not in st.session_state:
-    st.session_state.message = ""
 if 'last_answer' not in st.session_state:
     st.session_state.last_answer = ""
+if 'question_history' not in st.session_state:
+    st.session_state.question_history = []
 
 st.title("Guess Who?")
 
 # Rules
 st.write("Welcome to Guess Who!")
-st.write("Try to guess the opponent's character by asking yes or no questions.")
-st.write("You can ask about hair color, eye color, glasses, hat, gender, or species (human, cat, or duck).")
-st.write("When you want to guess the opponent's character, type 'I want to guess'")
-st.write("To forfeit the game, type 'end game'")
+st.write("Choose an attribute and value to ask a yes/no question.")
+st.write("Make a guess when you think you know the answer.")
 
 # Display character list
-st.write("Here are the characters you can choose from:")
-st.write(", ".join(characters_list))
+st.write("**Characters:** " + ", ".join(characters_list))
 
 # New Game button
 if st.button("Start New Game"):
     st.session_state.opponent_character = opponent_choice()
     st.session_state.question_count = 0
     st.session_state.game_over = False
-    st.session_state.message = "New game started! Ask your first question."
     st.session_state.last_answer = ""
+    st.session_state.question_history = []
 
 # Display current game state
 if st.session_state.opponent_character and not st.session_state.game_over:
     st.divider()
-    st.subheader(f"Question #{st.session_state.question_count}")
+    st.subheader(f"Question #{st.session_state.question_count + 1}")
     
-    # Question input
-    question = st.text_input("Ask a yes or no question about the opponent's character:", key="question_input")
+    opponent_choice_val = st.session_state.opponent_character
     
-    col1, col2 = st.columns([1, 4])
+    # Simple dropdown-based question selection
+    col1, col2 = st.columns(2)
+    
     with col1:
-        submit_btn = st.button("Submit Question")
+        attribute = st.selectbox(
+            "Select attribute:",
+            ["", "Hair Color", "Eye Color", "Accessories", "Gender", "Species", "Location"]
+        )
     
-    if submit_btn and question:
-        question_lower = question.lower()
-        opponent_choice_val = st.session_state.opponent_character
-        
-        st.session_state.question_count += 1
-        answer = None
-        
-        # Hair color questions
-        if "blonde hair" in question_lower:
-            answer = "Yes" if opponent_choice_val in ["Anna", "Andie", "Alex", "George", "Violet", "Hazel", "Jade", "Gail"] else "No"
-        elif "brown hair" in question_lower:
-            answer = "Yes" if opponent_choice_val in ["Tieler", "Steve", "Kristina", "Jake", "Rochelle", "Charlie", "Matt", "Micheal", "Mallards"] else "No"
-        elif "grey hair" in question_lower:
-            answer = "Yes" if opponent_choice_val in ["Karen", "Roy", "GG", "Benny", "Bob", "Not Bob"] else "No"
-        elif "orange hair" in question_lower:
-            answer = "Yes" if opponent_choice_val in ["Grace", "Bobbie"] else "No"
-        elif "bald" in question_lower:
-            answer = "Yes" if opponent_choice_val in ["Tony", "Jon"] else "No"
-        
-        # Eye color questions
-        elif "blue eyes" in question_lower:
-            answer = "Yes" if opponent_choice_val in ["Anna", "Andie", "Steve", "Karen", "Jon", "Grace", "Charlie", "Roy", "Gail", "Violet", "Jade"] else "No"
-        elif "brown eyes" in question_lower:
-            answer = "Yes" if opponent_choice_val in ["Tony", "Tieler", "Kristina", "Rochelle", "Matt", "Bob", "Not Bob", "Micheal", "Mallards"] else "No"
-        elif "green eyes" in question_lower:
-            answer = "Yes" if opponent_choice_val in ["Alex", "Charlie", "Hazel", "Jade"] else "No"
-        elif "yellow eyes" in question_lower:
-            answer = "Yes" if opponent_choice_val in ["Bobbie", "George", "GG", "Benny"] else "No"
-        
-        # Glasses questions
-        elif "glasses" in question_lower:
-            answer = "Yes" if opponent_choice_val in ["Anna", "Andie", "Jake", "Rochelle", "Gail", "Jade", "Matt", "Hazel"] else "No"
-        
-        # Hat questions
-        elif "hat" in question_lower:
-            answer = "Yes" if opponent_choice_val in ["Tony", "Tieler", "Jake", "Jon", "Roy"] else "No"
-        
-        # Gender questions
-        elif "male" in question_lower:
-            answer = "Yes" if opponent_choice_val in ["Tony", "Tieler", "Steve", "Jake", "Jon", "Charlie", "Roy", "Matt", "George", "Benny", "Not Bob", "Micheal", "Mallards"] else "No"
-        elif "female" in question_lower:
-            answer = "Yes" if opponent_choice_val in ["Anna", "Andie", "Alex", "Karen", "Kristina", "Rochelle", "Grace", "Gail", "Violet", "GG", "Bobbie"] else "No"
-        
-        # Species questions
-        elif "human" in question_lower:
-            answer = "Yes" if opponent_choice_val in ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Jon", "Rochelle", "Grace", "Charlie", "Gail", "Roy", "Jade", "Violet", "Matt", "Hazel"] else "No"
-        elif "cat" in question_lower:
-            answer = "Yes" if opponent_choice_val in ["Bobbie", "George", "GG", "Benny"] else "No"
-        elif "duck" in question_lower:
-            answer = "Yes" if opponent_choice_val in ["Bob", "Not Bob", "Micheal", "Mallards"] else "No"
-        
-        # Guess handling
-        elif "guess" in question_lower:
-            guess = st.text_input("Enter your guess:", key="guess_input")
-            if st.button("Submit Guess"):
-                if guess.title() == opponent_choice_val:
-                    st.session_state.message = f"🎉 Congratulations! You guessed the opponent's character correctly!"
-                    st.session_state.last_answer = f"The character was {opponent_choice_val}. You guessed it in {st.session_state.question_count} questions!"
-                    st.session_state.game_over = True
-                else:
-                    st.session_state.message = f"❌ Sorry, that's not correct."
-                    st.session_state.last_answer = f"The opponent's character was {opponent_choice_val}. Thanks for playing!"
-                    st.session_state.game_over = True
-            answer = "Make your guess above"
-        
-        # End game
-        elif "end game" in question_lower:
-            st.session_state.message = f"Game ended. The opponent's character was {opponent_choice_val}."
-            st.session_state.last_answer = "Thanks for playing!"
-            st.session_state.game_over = True
-        
+    with col2:
+        value = st.selectbox(
+            "Select value:",
+            get_values_for_attribute(attribute)
+        )
+    
+    # Ask Question button
+    if st.button("Ask Question"):
+        if not value:
+            st.warning("Please select both an attribute and a value.")
         else:
-            answer = "I don't understand that question. Try asking about hair color, eye color, glasses, hat, gender, or species."
-        
-        if answer and answer != "Make your guess above":
+            question = f"{value}?"
+            answer = get_answer(opponent_choice_val, attribute, value)
+            
+            st.session_state.question_count += 1
             st.session_state.last_answer = answer
-            st.session_state.message = f"You asked: {question}"
+            st.session_state.question_history.append(f"Q{st.session_state.question_count}: {question} → {answer}")
+            st.rerun()
 
-    # Display message
-    if st.session_state.message:
-        st.info(st.session_state.message)
+    # Display current answer
     if st.session_state.last_answer:
         st.write(f"**Answer: {st.session_state.last_answer}**")
+    
+    # Display question history
+    if st.session_state.question_history:
+        with st.expander("Question History"):
+            for q in st.session_state.question_history:
+                st.write(q)
+
+    # Guess section
+    st.divider()
+    st.subheader("Make a Guess")
+    
+    guess_col1, guess_col2 = st.columns([3, 1])
+    with guess_col1:
+        player_guess = st.selectbox("Select a character:", [""] + characters_list, key="guess_select")
+    with guess_col2:
+        st.write("")  # spacing
+        st.write("")  # spacing
+        submit_guess_btn = st.button("Submit Guess")
+    
+    if submit_guess_btn and player_guess:
+        if player_guess == opponent_choice_val:
+            st.session_state.last_answer = f"Correct! The character was {opponent_choice_val}. You guessed it in {st.session_state.question_count} questions!"
+            st.session_state.game_over = True
+        else:
+            st.session_state.last_answer = f" Wrong! The character was {opponent_choice_val}. Thanks for playing!"
+            st.session_state.game_over = True
+        st.rerun()
+    
+    # End Game button
+    if st.button("End Game"):
+        st.session_state.last_answer = f"Game ended. The character was {opponent_choice_val}."
+        st.session_state.game_over = True
+        st.rerun()
 
 elif st.session_state.game_over:
-    st.success(st.session_state.message if st.session_state.message else st.session_state.last_answer)
+    st.success(st.session_state.last_answer)
     st.write("Click 'Start New Game' to play again!")
 
 else:
     st.write("Click 'Start New Game' to begin!")
-    #hair color questions
-    #blonde hair
-    if question.lower() == "do they have blonde hair?":
-        if opponent_choice in ["Anna", "Andie", "Alex", "George", "Violet", "Hazel", "Jade", "Gail"]:
-            st.write("Yes")
-        else:
-            st.write("No")
-    #brown hair
-    elif question.lower() == "do they have brown hair?":
-        if opponent_choice in ["Tieler", "Steve", "Kristina", "Jake", "Rochelle", "Charlie", "Matt", "Micheal", "Mallards"]:
-            st.write("Yes")
-        else:
-            st.write("No")
-    #grey hair
-    elif question.lower() == "do they have grey hair?":
-        if opponent_choice in ["Karen", "Roy", "GG", "Benny", "Bob", "Not Bob"]:
-            st.write("Yes")
-        else:
-            st.write("No")
-    #orange hair
-    elif question.lower() == "do they have orange hair?":
-        if opponent_choice in ["Grace", "Bobbie"]:
-            st.write("Yes")
-        else:
-            st.write("No")
-    #no hair
-    elif question.lower() == "are they bald?":
-        if opponent_choice in ["Tony", "Jon"]:
-            st.write("Yes")
-        else:
-            st.write("No")
-
-    #eye color questions
-    #blue eyes
-    elif question.lower() == "do they have blue eyes?":
-        if opponent_choice in ["Anna", "Andie", "Steve", "Karen", "Jon", "Grace", "Charlie", "Roy", "Gail", "Violet", "Jade"]:
-            st.write("Yes")
-        else:
-            st.write("No")
-    #brown eyes
-    elif question.lower() == "do they have brown eyes?":
-        if opponent_choice in ["Tony", "Tieler", "Kristina", "Rochelle", "Matt", "Bob", "Not Bob", "Micheal", "Mallards"]:
-            st.write("Yes")
-        else:
-            st.write("No")
-    #green eyes
-    elif question.lower() == "do they have green eyes?":
-        if opponent_choice in ["Alex", "Charlie", "Hazel", "Jade"]:
-            st.write("Yes")
-        else:
-            st.write("No")
-    #yellow eyes
-    elif question.lower() == "do they have yellow eyes?":
-        if opponent_choice in ["Bobbie", "George", "GG", "Benny",]:
-            st.write("Yes")
-        else:
-            st.write("No")
-
-    #glasses questions
-    #yes glasses
-    elif question.lower() == "do they wear glasses?":
-        if opponent_choice in ["Anna", "Andie", "Jake", "Rochelle", "Gail", "Jade", "Matt", "Hazel"]:
-            st.write("Yes")
-        else:
-            st.write("No")
-
-    #hat questions
-    #yes hat
-    elif question.lower() == "do they wear a hat?":
-        if opponent_choice in ["Tony", "Tieler", "Jake", "Jon", "Roy"]:
-            st.write("Yes")
-        else:
-            st.write("No")
-
-    #gender questions
-    #male
-    elif question.lower() == "are they male?":
-        if opponent_choice in ["Tony", "Tieler", "Steve", "Jake", "Jon", "Charlie", "Roy", "Matt", "George", "Benny", "Not Bob", "Micheal", "Mallards"]:
-            st.write("Yes")
-        else:
-            st.write("No")
-    #female
-    elif question.lower() == "are they female?":
-        if opponent_choice in ["Anna", "Andie", "Alex", "Karen", "Kristina", "Rochelle", "Grace", "Gail", "Violet", "GG", "Bobbie"]:
-            st.write("Yes")
-        else:
-            st.write("No")
-
-    #species questions
-    #human
-    elif question.lower() == "are they human?":
-        if opponent_choice in ["Anna", "Tony", "Tieler", "Andie", "Alex", "Steve", "Karen", "Kristina", "Jake", "Jon", "Rochelle", "Grace", "Charlie", "Gail", "Roy", "Jade", "Violet", "Matt", "Hazel"]:
-            st.write("Yes")
-        else:
-            st.write("No")
-    #cat
-    elif question.lower() == "are they a cat?":
-        if opponent_choice in ["Bobbie", "George", "Gg", "Benny"]:
-            st.write("Yes")
-        else:
-            st.write("No")
-    #duck
-    elif question.lower() == "are they a duck?":
-        if opponent_choice in ["Bob", "Not bob", "Micheal", "Mallards"]:
-            st.write("Yes")
-        else:
-            st.write("No")
-
-    elif question.lower() == "i want to guess the opponent's character" or question.lower() == "i want to guess":
-        guess = st.text_input("Enter your guess: ")
-        if guess.title() == opponent_choice:
-            st.write("Congratulations! You guessed the opponent's character correctly!")
-            st.write(f"You guessed the character in {q} questions.")
-            win = True
-        else:
-            st.write("Sorry, that's not correct. Keep trying!")
-            st.write(f"The opponent's character was {opponent_choice}. Thanks for playing!")
-            win = True
-    elif question.lower() == "end game":
-        st.write(f"The opponent's character was {opponent_choice}. Thanks for playing!")
-        break
